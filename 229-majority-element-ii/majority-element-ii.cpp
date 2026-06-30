@@ -1,27 +1,53 @@
 class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
-        int n=nums.size();
-        vector<int>ans;
-        for(int i=0;i<n;i++){
-            int count=0;
-            for(int j=0;j<n;j++){
-            if(nums[i]==nums[j]) count ++;
+
+        int candidate1 = 0, candidate2 = 1;
+        int count1 = 0, count2 = 0;
+
+        // Phase 1: Find candidates
+        for (int num : nums) {
+
+            if (num == candidate1)
+                count1++;
+
+            else if (num == candidate2)
+                count2++;
+
+            else if (count1 == 0) {
+                candidate1 = num;
+                count1 = 1;
             }
-if(count > (n/3)) {
-    bool found = false;
 
-    for(int k = 0; k < ans.size(); k++) {
-        if(ans[k] == nums[i]) {
-            found = true;
-            break;
-        }
-    }
+            else if (count2 == 0) {
+                candidate2 = num;
+                count2 = 1;
+            }
 
-    if(!found)
-        ans.push_back(nums[i]);
-}
+            else {
+                count1--;
+                count2--;
+            }
         }
+
+        // Phase 2: Verify
+        count1 = count2 = 0;
+
+        for (int num : nums) {
+            if (num == candidate1)
+                count1++;
+            else if (num == candidate2)
+                count2++;
+        }
+
+        vector<int> ans;
+
+        if (count1 > nums.size() / 3)
+            ans.push_back(candidate1);
+
+        if (count2 > nums.size() / 3)
+            ans.push_back(candidate2);
+
         return ans;
     }
 };
