@@ -4,11 +4,11 @@ public:
         int minPrice = INT_MAX;
         int maxProfit = 0;
 
-        for (int price : prices) {
-            if (price < minPrice) {
-                minPrice = price;
+        for (int i: prices) {
+            if (i < minPrice) {
+                minPrice = i;
             } else {
-                maxProfit = max(maxProfit, price - minPrice);
+                maxProfit = max(maxProfit, i - minPrice);
             }
         }
 
