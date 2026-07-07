@@ -4,7 +4,7 @@ public:
       int n=nums.size();
       int prefix=1;
       int sufix=1;
-      vector<int>ans(n,0);
+      vector<int>ans(n,1);
       for(int i=0;i<n;i++){
         ans[i]=prefix;
         prefix*=nums[i];
