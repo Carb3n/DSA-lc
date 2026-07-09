@@ -1,27 +1,48 @@
 class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
-        int n=nums.size();
+        int n = nums.size();
         vector<int>ans;
-        for(int i=0;i<n;i++){
-            int count=0;
-            for(int j=0;j<n;j++){
-            if(nums[i]==nums[j]) count ++;
+        if(n == 0) return ans;
+        if(n == 1) return nums;
+        int ele1 = INT_MIN, ele2 = INT_MIN;;
+        int count1 = 0 ,count2 = 0;
+
+
+        for(int ele : nums){
+            if(ele == ele1){
+                count1++;//if ele1 is alr present
+            }else if(ele == ele2){
+                count2++;//same for ele2
+            }else if(count1 == 0){
+                ele1 = ele;
+                count1++;
+            }else if(count2 == 0){
+                ele2 = ele;
+                count2++;
+            }else{
+                count1--;
+                count2--;
             }
-if(count > (n/3)) {
-    bool found = false;
-
-    for(int k = 0; k < ans.size(); k++) {
-        if(ans[k] == nums[i]) {
-            found = true;
-            break;
         }
-    }
+        count1 = 0;
+        count2 = 0;
 
-    if(!found)
-        ans.push_back(nums[i]);
-}
+        for(int ele : nums){
+            if(ele == ele1){
+                count1++;
+            }else if(ele == ele2){
+                count2++;
+            }
         }
+ 
+        if(count1>(n/3)){
+            ans.push_back(ele1);
+        }
+        if(count2>(n/3)){
+            ans.push_back(ele2);
+        }
+
         return ans;
     }
 };
