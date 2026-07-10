@@ -1,10 +1,10 @@
 class Solution {
 public:
-int count=0;
-    void merge(vector<int>&arr,int low,int mid,int high){
+    int merge(vector<int>&arr,int low,int mid,int high){
         vector<int>temp;
         int left=low;
         int right=mid+1;
+        int count=0;
         while(left<=mid && right<=high){
             if(arr[left]<=arr[right]){
                 temp.push_back(arr[left]);
@@ -26,28 +26,29 @@ int count=0;
         for(int i=low;i<=high;i++){
             arr[i]=temp[i-low];
         }
+        return count;
     }
-    void countpairs(vector<int>&arr,int low,int mid,int high){
+    int countpairs(vector<int>&arr,int low,int mid,int high){
         int right=mid+1;
+        int count=0;
         for(int i=low;i<=mid;i++){
-            while(right<=high && (long long)arr[i]>(long long)2*arr[right]) right++;
+            while(right<=high && (long long)arr[i]>2LL*arr[right]) right++;
                 count +=right-(mid+1);
-            
         }
+        return count;
     }
-    void mergesort(vector<int>&arr,int low,int high){
-        if(low>=high) return;
+    int mergesort(vector<int>&arr,int low,int high){
+        int count=0;
+        if(low>=high) return 0;
         int mid= low + (high - low) / 2;
-        mergesort(arr,low,mid);
-        mergesort(arr,mid+1,high);
-        countpairs(arr,low,mid,high);
-        merge(arr,low,mid,high);
+        count+=mergesort(arr,low,mid);
+        count+=mergesort(arr,mid+1,high);
+        count+=countpairs(arr,low,mid,high);
+        count+=merge(arr,low,mid,high);
+        return count;
     }
     int reversePairs(vector<int>& nums) {
         int n=nums.size();
-        mergesort(nums,0,n-1);
-
-        return count;
-
+         return mergesort(nums,0,n-1);
     }
 };
