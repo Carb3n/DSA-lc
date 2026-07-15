@@ -3,6 +3,6 @@ public:
     int gcdOfOddEvenSums(int n) {
        int sumodd=n*n;
        int sumeven=n*(n+1);
-        return sumeven-sumodd;
+        return gcd(sumodd, sumeven);
     }
 };
