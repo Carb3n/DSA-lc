@@ -7,7 +7,7 @@ public:
         int high=(n*m-1);
         while(low<=high){
             int mid=(low+high)/2;
-            int row=mid/m;
+            int row=mid/m;//m is no. of columns
             int col=mid%m;
             if(matrix[row][col]==target) return true;
             else if(matrix[row][col]<target) low=mid+1;
