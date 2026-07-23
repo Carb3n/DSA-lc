@@ -1,19 +1,36 @@
 class Solution {
 public:
-    vector<int> findPeakGrid(vector<vector<int>>& mat) {
-        vector<int>ans(2);
-        int n=mat.size();
-        int m=mat[0].size();
+    int findMaxIndex(vector<vector<int>>& nums,int col){
+        int n=nums.size();
+        int m=nums[0].size();
         int maxi=INT_MIN;
-        for (size_t i = 0; i < mat.size(); i++) {
-            for (size_t j = 0; j < mat[0].size(); j++) {
-                if (mat[i][j] > maxi) {
-                    maxi = mat[i][j];
-                    ans[0] = i;
-                    ans[1] = j;
-                }
+        int index=-1;
+        for(int i=0;i<n;i++){
+            if(nums[i][col]>maxi){
+                maxi=nums[i][col];
+                index=i;
             }
         }
-        return ans;
+            return index;   
+    }
+    vector<int> findPeakGrid(vector<vector<int>>& mat) {
+        int n=mat.size();
+        int m=mat[0].size();
+        int low=0;
+        int high=m-1;
+        while(low<=high){
+            int mid = low + (high - low) / 2;
+            int maxRowIndex = findMaxIndex(mat,mid);
+            int left = (mid - 1 >= 0) ? mat[maxRowIndex][mid - 1] : -1;
+            int right = (mid + 1 < m) ? mat[maxRowIndex][mid + 1] : -1;
+            if (mat[maxRowIndex][mid] > left &&
+                mat[maxRowIndex][mid] > right) {
+
+                return {maxRowIndex, mid};
+            }
+            else if(mat[maxRowIndex][mid]<left) high=mid-1;
+            else low=mid+1;
+        }
+        return {-1,-1};
     }
 };
