@@ -15,4 +15,7 @@ public:
         }
          return true;
     }
-};
+}; //freq.find(ch)==freq.end() means if ch exist in 't' string 
+//we are first mapping s string then removing frequency after finding it in t string if count reaches 0 that means its an anagram
+// /freq[ch] == 0 means:
+//There are no more occurrences of this character left to match.
