@@ -13,9 +13,6 @@ public:
     ListNode* middleNode(ListNode* head) {
         int length=0;
         ListNode*temp=head;
-        if(head==nullptr || head->next==nullptr){
-            return head;
-        }
         while(temp){
             length++;
             temp=temp->next;
