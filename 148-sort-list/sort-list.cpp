@@ -36,7 +36,7 @@ public:
 
     ListNode* findMiddle(ListNode* head) {
         ListNode* slow = head;
-        ListNode* fast = head->next;
+        ListNode* fast = head->next;//we want the middle to be the last node of the left half.
 
         while (fast && fast->next) {
             slow = slow->next;
